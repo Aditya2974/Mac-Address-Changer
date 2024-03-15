@@ -21,6 +21,19 @@ def get_random_mac_address():
                 mac += random.choice(uppercased_hexdigits)
         mac += ":"
     
+    return mac.strip(":")
+
+def get_current_mac_address(iface,new_mac_address):
+
+    # disabled the network interface:
+    subprocess.check_output(f"ifconfig {iface} down",shell=True)
+
+    # Change the MAC
+    subprocess.check_output(f"ifconfig {iface} hw ether {new_mac_address}",shell=True)
+
+    #enabling the network interface again
+    subprocess.check_output(f"ifconfig {iface} up",shell=True)
 
 
-    
+def pt():
+    print("Hello")
